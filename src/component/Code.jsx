@@ -9,12 +9,13 @@ import 'ace-builds/src-noconflict/theme-github_dark'
 import 'ace-builds/src-noconflict/theme-monokai'
 import './CodeStyles.css'
 import Copy from './Copy';
-// import Buttons from './Buttons';
+import axios from 'axios';
+
 
 
 export default class Code extends React.Component {
 
-    
+
     constructor(props, context) {
         super(props, context);
 
@@ -22,7 +23,7 @@ export default class Code extends React.Component {
             theme: 'terminal',
             code: '// your code goes here',
             mode: 'c_cpp',
-            result: ''
+            result:'Compile and Execute the code to see output'
         }
 
         this.onChange = this.onChange.bind(this);
@@ -59,44 +60,41 @@ export default class Code extends React.Component {
         return this.state.mode;
     }
 
-    
+    async send() {
+        try {
+            const tobesent = JSON.stringify({ code: this.state.code, mode: this.state.mode });
+            const options = {
+                headers: { "content-type": "application/json" }
+            }
 
-    
+            // const response = await fetch('http://localhost:5000/api/endpoint1', {
+            //     method: 'POST',
+            //     body: JSON.stringify(jsonData),
+            //     headers: {
+            //         'Content-Type': 'application/json',
+            //     },
+            // }).then(resp => resp.json()).then(data => console.log(data)).catch(err => console.log(err));
+
+
+            await axios.post('http://localhost:5000/api/endpoint1', tobesent, options).then((res) => {
+                console.log(res); this.setState({ result: res.data });
+            }).catch((err) => console.log(err));
+
+
+
+            // const wasmBytes = await response.arrayBuffer();
+            // const wasmModule = new WebAssembly.Module(wasmBytes);
+            // const wasmInstance = new WebAssembly.Instance(wasmModule);
+            // const result = wasmInstance.exports.function_name();
+            // this.setState({ result });
+
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+
 
     render() {
-       async function send () {
-    try {
-      const tobesent = this.state.code;
-      const mode =this.state.mode;
-      const jsonData = { lang:{mode}, code: {tobesent} }; //object to be sent
-
-      const response = await fetch('/endpoint', {
-        method: 'POST',
-        body: JSON.stringify(jsonData),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-
-      
-      const wasmBytes = await response.arrayBuffer();
-
-      
-      const wasmModule = new WebAssembly.Module(wasmBytes);
-      const wasmInstance = new WebAssembly.Instance(wasmModule);
-
-      
-      const result = wasmInstance.exports.function_name();
-
-      this.setState({ result });
-    } catch (error) {
-      console.error('Error:', error);
-    }
-}
         return (
             <div className='pt-5'>
                 <div className='flex justify-evenly text-blue-800 text-lg'>
@@ -137,9 +135,9 @@ export default class Code extends React.Component {
                         highlightActiveLine={true}
                         value={this.getCode()}
                         setOptions={{
-                            enableBasicAutocompletion: false,
+                            enableBasicAutocompletion: true,
                             enableLiveAutocompletion: false,
-                            enableSnippets: false,
+                            enableSnippets: true,
                             showLineNumbers: true,
                             tabSize: 2,
                         }} />
@@ -148,12 +146,14 @@ export default class Code extends React.Component {
 
                 </div>
                 <div className='flex justify-center mt-2 mb-2'>
-                        <div className=' flex justify-evenly w-[50%]'>
-                              <button className=' border-2 border-blue-500 rounded-2xl p-2  hover:text-white hover:bg-blue-500 transition-all ease-in-out'onClick={send}>Compile</button>
-                              <button className='border-2 border-blue-500 rounded-2xl p-2  hover:text-white hover:bg-blue-500 transition-all ease-in-out'>Compile and Execute</button>
-                         </div>
-                  </div>
-                  <div className='h-40 w-full mt-9 border-blue-950' >Output: {this.state.result}</div>
+                    <div className=' flex justify-evenly w-[50%]'>
+                        <button className=' border-2 border-blue-500 rounded-2xl p-2  hover:text-white hover:bg-blue-500 transition-all ease-in-out' onClick={(e) => { console.log("send called"); this.send(); }}>Compile and Execute</button>
+                    </div>
+                </div>
+                <div className='h-40 w-full mt-9 border-blue-950' >
+                    <h1 className=' text-lg'>Output: {this.state.result.message}</h1>
+                    <h1 className=' text-lg'>Language: {this.state.result.language}</h1>
+                </div>
             </div>
         );
     }

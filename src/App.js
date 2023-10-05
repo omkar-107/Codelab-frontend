@@ -5,7 +5,7 @@ import Footer from './component/Footer';
 import Home from './component/Home';
 import {Routes, Route} from 'react-router-dom';
 import Code from './component/Code';
-import AboutSection from './component/AboutSection';
+import FileDrop from './component/DragAndDrop'
 
 function App() {
   return (
@@ -13,7 +13,7 @@ function App() {
       <NavBar></NavBar>
       <Routes>
         <Route path='/' element={<div><Home/></div>}/>
-        <Route path='/try' element={<Code/>}/>
+        <Route path='/try' element={<div><Code/> <FileDrop></FileDrop></div>}/>
         <Route path='*' element={<div>hello</div>}/>
 
        
