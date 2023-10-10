@@ -1,0 +1,13 @@
+.file-drop-zone {
+    border: 2px dashed #ccc;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    width: 500px;
+    height: 500px;
+}
+
+.file-drop-zone.dragging {
+    background-color: #f0f0f0;
+    border: 2px dashed #aaa;
+}
