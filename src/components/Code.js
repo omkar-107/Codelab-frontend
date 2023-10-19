@@ -24,7 +24,7 @@ export default class Code extends React.Component {
             theme: 'terminal',
             code: '// your code goes here',
             mode: 'c_cpp',
-            result: 'Compile and Execute the code to see output',
+            result: { message: 'Compile and Execute the code to see output', language: `` },
             language: 'c'
         }
 
@@ -189,9 +189,12 @@ export default class Code extends React.Component {
                             <button className=' border-2 border-blue-500 rounded-2xl p-2  hover:text-white hover:bg-blue-500 transition-all ease-in-out' onClick={(e) => { console.log("send called"); this.send(); }}>Compile and Execute</button>
                         </div>
                     </div>
-                    <div className='h-40 w-full mt-9 border-blue-950' >
-                        <h1 className=' text-lg'>Output: {this.state.result.message}</h1>
-                        <h1 className=' text-lg'>Language: {this.state.result.language}</h1>
+                    <div className='flex justify-center items-center'>
+                        <div className='h-52 w-[90%] bg-slate-900 mt-9 border-blue-950 text-white'>
+                            <div>{this.state.result.message.split('\n').map(line => <h3 className=' text-md'>{line}</h3>)}</div>
+                            {/* <h3 className=' text-md'>Output: {this.state.result.message}</h3> */}
+                            <h1 className=' text-lg'>Language: {this.state.result.language}</h1>
+                        </div>
                     </div>
                 </div>
                 <div>
