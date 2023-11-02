@@ -11,6 +11,7 @@ import DragDrop from './DragAndDrop';
 import './CodeStyles.css'
 import Copy from './Copy';
 import axios from 'axios';
+import CircularIndeterminate from './CircularIndeterminate';
 
 
 
@@ -24,7 +25,7 @@ export default class Code extends React.Component {
             theme: 'terminal',
             code: '// your code goes here',
             mode: 'c_cpp',
-            result: { message: 'Compile and Execute the code to see output', language: `` },
+            result: { message: 'Compile and Execute the code to see output', language: ``, javascriptcode: `` },
             language: 'c'
         }
 
@@ -98,6 +99,7 @@ export default class Code extends React.Component {
     }
 
     async send() {
+        this.setState({ result: null });
         try {
             const tobesent = JSON.stringify({ code: this.state.code, language: this.state.language });
             const options = {
@@ -114,7 +116,7 @@ export default class Code extends React.Component {
 
 
             await axios.post('http://localhost:5000/api/endpoint1', tobesent, options).then((res) => {
-                console.log(res); this.setState({ result: res.data });
+                console.log(res); this.setState({ result: res.data }); console.log(this.state.result.javascriptcode);
             }).catch((err) => console.log(err));
 
 
@@ -191,9 +193,12 @@ export default class Code extends React.Component {
                     </div>
                     <div className='flex justify-center items-center'>
                         <div className='h-52 w-[90%] bg-slate-900 mt-9 border-blue-950 text-white'>
-                            <div>{this.state.result.message.split('\n').map(line => <h3 className=' text-md'>{line}</h3>)}</div>
-                            {/* <h3 className=' text-md'>Output: {this.state.result.message}</h3> */}
-                            <h1 className=' text-lg'>Language: {this.state.result.language}</h1>
+                            {this.state.result ?
+                                <div>
+                                    <div>{this.state.result.message.split('\n').map(line => <h3 className=' text-md'>{line}</h3>)}</div>
+                                    <h1 className=' text-lg'>Language: {this.state.result.language}</h1>
+                                </div>
+                                : <div className='w-[100%] h-[100%] flex justify-center items-center'><CircularIndeterminate /></div>}
                         </div>
                     </div>
                 </div>
