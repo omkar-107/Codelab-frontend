@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { useState } from "react";
+import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function NavBar() {
+  const { token } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.profile)
   const [menuOpen, setMenuOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -11,10 +14,13 @@ function NavBar() {
   return (
     <nav className="bg-white border-gray-200 dark:bg-gray-900">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-       <a href='#'> <h1 className="flex items-center self-center text-3xl font-semibold whitespace-nowrap dark:text-white">CodeLab</h1></a>
-          
-         
-        
+        <a href="/">
+          {" "}
+          <h1 className="flex items-center self-center text-3xl font-semibold whitespace-nowrap dark:text-white">
+            CodeLab
+          </h1>
+        </a>
+
         <button
           onClick={toggleMenu}
           type="button"
@@ -30,61 +36,70 @@ function NavBar() {
             fill="none"
             viewBox="0 0 17 14"
           >
-            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1h15M1 7h15M1 13h15"/>
+            <path
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M1 1h15M1 7h15M1 13h15"
+            />
           </svg>
         </button>
         <div
           className={`${
-            menuOpen ? 'block' : 'hidden'
+            menuOpen ? "block" : "hidden"
           } w-full md:block md:w-auto mt-4 md:mt-0`}
           id="navbar-default"
         >
           <ul className="font-medium flex flex-col p-4 md:p-0 md:flex-row md:space-x-8 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-           <NavLink to='/'>
-           <li>
-              <a
-                href="#"
-                className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 hover:border-2  md:hover:bg-transparent md:hover:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent "
-                aria-current="page"
-              >
-                Home
-              </a>
-            </li>
-           </NavLink>
-            <li>
-              <a
-                href="#"
-                className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 hover:border-2  md:hover:bg-transparent md:hover:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-              >
-                About
-              </a>
-            </li>
-            <NavLink to='/try'>
-            <li>
-              <a
-                href="/try"
-                className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-              >
-                Try now
-              </a>
-            </li>
+            <NavLink to="/">
+              <li>
+                <div className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 hover:border-2  md:hover:bg-transparent md:hover:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent ">
+                  Home
+                </div>
+              </li>
             </NavLink>
-            <li>
-              <a
-                href="#"
-                className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-              >
-                Login/Register
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-              >
-                Contact
-              </a>
-            </li>
+            <NavLink to="/about">
+              <li>
+                <div className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 hover:border-2  md:hover:bg-transparent md:hover:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent ">
+                  About
+                </div>
+              </li>
+            </NavLink>
+            <NavLink to="/try">
+              <li>
+                <div className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 hover:border-2  md:hover:bg-transparent md:hover:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent ">
+                  Try Now
+                </div>
+              </li>
+            </NavLink>
+            {token === null && (
+              <NavLink to="/login">
+                <li>
+                  <div className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 hover:border-2  md:hover:bg-transparent md:hover:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent ">
+                    Login
+                  </div>
+                </li>
+              </NavLink>
+            )}
+
+            {token !== null && (
+              <NavLink to="/logout">
+                <div className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 hover:border-2  md:hover:bg-transparent md:hover:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent ">
+                  Logout
+                </div>
+              </NavLink>
+            )}
+             {user && (
+              <NavLink to="/dashboard">
+                <li>
+                  <div className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 hover:border-2  md:hover:bg-transparent md:hover:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent ">
+                    Dashboard
+                  </div>
+                </li>
+              </NavLink>
+            )}
+
           </ul>
         </div>
       </div>
