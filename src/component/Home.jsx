@@ -29,7 +29,7 @@ function Home() {
     );
     return (
         <section id="home" className='h-screen '>
-            <WaterWave interactive={true} strength={100} dropRadius={25} resolution={128} perturbance={0.02} className="banner_area banner_shap_two relative flex items-center justify-center"
+            <WaterWave interactive={true} strength={10} dropRadius={15} resolution={128} perturbance={0.02} className="banner_area banner_shap_two relative flex items-center justify-center"
                 style={{ width: '100%', height: '100%', backgroundSize: 'cover' }}
                 imageUrl={require("./nasa-Q1p7bh3SHj8-unsplash.jpg")}>
                 {() => (

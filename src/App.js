@@ -8,7 +8,7 @@ import {Routes, Route} from 'react-router-dom';
 import Code from './component/Code';
 import Login from './component/Login';
 import Logout from './component/Logout';
-
+import Notfound from './extra/Notfound';
 
 
 function App() {
@@ -22,7 +22,7 @@ function App() {
         <Route path='/try' element={<div><Code/> </div>}/>
         <Route path='/login' element={<div><Login/></div>}/>
         <Route path='/logout' element={<div><Logout/></div>}/>
-        <Route path='*' element={<div>hello</div>}/>
+        <Route path='*' element={<Notfound/>}/>
 
        
       </Routes>
