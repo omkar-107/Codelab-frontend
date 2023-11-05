@@ -139,21 +139,28 @@ export default function Code() {
                         <button className='border-2 border-blue-500 rounded-2xl p-2 hover:text-white hover:bg-blue-500 transition-all ease-in-out' onClick={send}>Compile and Execute</button>
                     </div>
                 </div>
-                <div className="flex justify-center mt-2 gap-3 items-center">
-                <label htmlFor="stdin">Input:</label>
-                <input
-                    type="text"
-                    placeholder="Enter stdin"
-                    value={stdin}
-                    name='stdin'
-                    className='border-2 border-black-500 rounded-xl p-2 '
-                    onChange={(e) => setStdin(e.target.value)}
-                />
-            </div>
+                <div className="w-full flex justify-center mt-10 gap-8 items-center">
+                    <label htmlFor="stdin" className='text-3xl'>Your Input</label>
+                    <input
+                        type="text"
+                        placeholder="Enter stdin"
+                        value={stdin}
+                        name='stdin'
+                        className='border-2 border-black-500 rounded-xl p-2 w-72'
+                        onChange={(e) => setStdin(e.target.value)}
+                    />
+                </div>
                 <div className='flex justify-center items-center '>
-                    <div className='min-h-[200px] w-[90%] bg-slate-900 mt-9 border-blue-950 text-white'>
+                    <div className='h-[200px] w-[90%] bg-slate-900 mt-9 border-blue-950 text-white flex justify-center items-center overflow-y-scroll'>
                         {/* <div>{result.message.split('\n').map((line, index) => <h3 key={index} className='text-md'>{line}</h3>)}</div> */}
-                        {loading ? <Spinner  /> : <h1 className='text-lg'>{`Output: ${res}`}</h1>}
+                        {loading ? 
+                            <Spinner  /> : 
+                            <div className='flex flex-col w-[80%]'>
+                                <h1 className=' font-bold text-xl'>OUTPUT</h1>
+                                {res.split('\n').map((line , index) => <h2 key={index} className='text-lg'>{line}</h2>)}
+                                {/* <h1 className='text-lg'>{`Output: ${res}`}</h1> */}
+                            </div>
+                        }
                     </div>
                 </div>
             </div>
