@@ -22,6 +22,7 @@ function App() {
         <Route path='/try' element={<div><Code/> </div>}/>
         <Route path='/login' element={<div><Login/></div>}/>
         <Route path='/logout' element={<div><Logout/></div>}/>
+        {/* <Route path='/dashboard' element={<div><Dashboard/></div>}/> */}
         <Route path='*' element={<Notfound/>}/>
 
        

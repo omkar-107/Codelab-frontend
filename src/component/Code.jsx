@@ -74,10 +74,10 @@ export default function Code() {
             const data = await response.json();
             console.log(data);
             if(data.result.exitCode != "0" ){
-                setRes(data.result.stderr  + data.result.errorType);
+                setRes(data.result.stderr  +"Error Type: " +data.result.errorType);
             }else{
                 setRes(data.result.stdout );
-                console.log("hello");
+                
                 console.log(res);
             }
             setLoading(false);
