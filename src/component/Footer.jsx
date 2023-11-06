@@ -9,7 +9,7 @@ function Footer() {
       <ul className="flex flex-wrap items-center gap-y-2 gap-x-8 justify-center">
         <li>
           <a
-            href="#"
+            href="/about"
             className="block p-2  font-sans text-base font-normal leading-relaxed text-blue-gray-900 antialiased transition-colors hover:text-blue-700 focus:text-blue-700 "
           >
             About Us
@@ -17,7 +17,7 @@ function Footer() {
         </li>
         <li>
           <a
-            href="#"
+            href="/about"
             className="block p-2 font-sans text-base font-normal leading-relaxed text-blue-gray-900 antialiased transition-colors hover:text-blue-700 focus:text-blue-700"
           >
             License
@@ -25,7 +25,7 @@ function Footer() {
         </li>
         <li>
           <a
-            href="#"
+            href="/about"
             className="block p-2 font-sans text-base font-normal leading-relaxed text-blue-gray-900 antialiased transition-colors hover:text-blue-700 focus:text-blue-700"
           >
             Contribute
@@ -33,7 +33,7 @@ function Footer() {
         </li>
         <li>
           <a
-            href="#"
+            href="/about"
             className="block p-2  font-sans text-base font-normal leading-relaxed text-blue-gray-900 antialiased transition-colors hover:text-blue-700 focus:text-blue-700"
           >
             Contact Us
