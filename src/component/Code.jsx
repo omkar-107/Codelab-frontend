@@ -11,6 +11,7 @@ import DragDrop from './DragAndDrop';
 import './CodeStyles.css';
 import Copy from './Copy';
 import Spinner from '../image/Spinner';
+const BASE_URL = process.env.REACT_APP_API_URL
 
 export default function Code() {
     const [theme, setTheme] = useState('terminal');
@@ -63,7 +64,7 @@ export default function Code() {
                 content: code,
                 stdin: stdin
             }
-            const response = await fetch('http://localhost:5000/api/v1/code/compile', {
+            const response = await fetch(BASE_URL+'/api/v1/code/compile', {
                 method: 'POST',
                 body: JSON.stringify(jsonData),
                 headers: {
