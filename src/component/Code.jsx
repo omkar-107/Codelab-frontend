@@ -63,7 +63,7 @@ export default function Code() {
                 content: code,
                 stdin: stdin
             }
-            const response = await fetch('http://localhost:55000/api/v1/code/compile', {
+            const response = await fetch('https://codelab-backend.onrender.com/api/v1/code/compile', {
                 method: 'POST',
                 body: JSON.stringify(jsonData),
                 headers: {
