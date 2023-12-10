@@ -63,7 +63,7 @@ export default function Code() {
                 content: code,
                 stdin: stdin
             }
-            const response = await fetch('http://localhost:55000/api/v1/code/compile', {
+            const response = await fetch('http://localhost:5000/api/v1/code/compile', {
                 method: 'POST',
                 body: JSON.stringify(jsonData),
                 headers: {
@@ -156,7 +156,7 @@ export default function Code() {
                         {loading ? 
                             <Spinner  /> : 
                             <div className='flex flex-col w-[80%]'>
-                                <h1 className=' font-bold text-xl'>OUTPUT</h1>
+                                <h1 className=' font-bold text-xl mt-16'>OUTPUT</h1>
                                 {res.split('\n').map((line , index) => <h2 key={index} className='text-lg'>{line}</h2>)}
                                 {/* <h1 className='text-lg'>{`Output: ${res}`}</h1> */}
                             </div>

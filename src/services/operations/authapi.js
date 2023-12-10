@@ -20,7 +20,7 @@ const {
           password,
         })
   
-        console.log("LOGIN API RESPONSE............", response)
+        // console.log("LOGIN API RESPONSE............", response)
   
         if (!response.data.success) {
           toast.error(response.data.message) 
@@ -30,10 +30,11 @@ const {
   
         toast.success("Login Successful")
         dispatch(setToken(response.data.token))
-        console.log(response.data.user);
-        dispatch(setUser({ ...response.data.user }))
+        // console.log(response.data.user);
+        dispatch(setUser( response.data.user ))
         localStorage.setItem("token", JSON.stringify(response.data.token))
-        navigate("/dashboard/")
+        localStorage.setItem("user", JSON.stringify(response.data.user))
+        navigate("/dashboard")
       } catch (error) {
         console.log("LOGIN API ERROR............", error)
         toast.error("Login Failed")
