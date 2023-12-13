@@ -40,7 +40,7 @@ const  StudentDashboard =   () => {
     return (
     <div className='h-screen flex justify-center flex-col '>
         {responseData.length > 0 && responseData.map((data) => {
-            return <div><Link to={`dashboard/sub/${data.id}`}><div>{data.name}</div> </Link></div>
+            return <div><Link to={`sub/${data.id}`}><div>{data.name}</div> </Link></div>
 
         
         })}

@@ -7,6 +7,7 @@ export const endpoints = {
     GET_INS: BASE_URL + "/api/v1/auth/getallinstructors",
     SIGNUP: BASE_URL + "/api/v1/auth/signup",
     ADD: BASE_URL + "/api/v1/auth/addtoclass",
+    BASE_URL
   }
 
 

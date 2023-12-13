@@ -1,8 +1,20 @@
 import React, { useEffect, useState } from 'react';
-
+import Code from '../component/Code';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { logout } from '../services/operations/authapi';
 const Exam = () => {
-  const [isModalOpen, setModalOpen] = useState(false);
-  const [exitConfirmation, setExitConfirmation] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch()
+  const handleLogout = () => {
+    // event.preventDefault();
+   
+    dispatch(logout(navigate))
+
+   
+  };
+
 
   useEffect(() => {
     const disableContextMenu = (e) => {
@@ -16,28 +28,43 @@ const Exam = () => {
     document.addEventListener('keydown', disableKeyboardShortcuts);
 
     const disableNavigation = () => {
-      window.onbeforeunload = () => {
-        return exitConfirmation ? null : 'Are you sure you want to leave?';
-      };
+      window.onbeforeunload = () => 'Are you sure you want to leave?';
     };
     disableNavigation();
 
-    const handleVisibilityChange = () => {
-      if (document.hidden) {
-        // Tab is not visible (loses focus)
-        console.log('Tab lost focus');
+    const handleFullscreenChange = () => {
+      const wasFullscreen = isFullscreen;
+      setIsFullscreen(!!document.fullscreenElement);
+
+      // Check if we were in fullscreen and now exited
+      if (wasFullscreen && !document.fullscreenElement) {
+        console.log('Exited fullscreen');
+        handleLogout();
+
       }
     };
 
+    const handleVisibilityChange = () => {
+      if (!document.hidden) {
+        console.log('Tab gained focus');
+      } else if (isFullscreen) {
+        handleLogout();
+        console.log('Tab lost focus while in fullscreen');
+        
+      }
+    };
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
     document.addEventListener('visibilitychange', handleVisibilityChange);
 
     return () => {
       document.removeEventListener('contextmenu', disableContextMenu);
       document.removeEventListener('keydown', disableKeyboardShortcuts);
       window.onbeforeunload = null;
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
       document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
-  }, [exitConfirmation]);
+  }, [isFullscreen]);
 
   const enterFullscreen = () => {
     const element = document.documentElement;
@@ -52,50 +79,14 @@ const Exam = () => {
     }
   };
 
-  const openModal = () => {
-    setModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setModalOpen(false);
-  };
-
-  const exitFullscreen = () => {
-    if (document.exitFullscreen) {
-      document.exitFullscreen();
-    } else if (document.mozCancelFullScreen) {
-      document.mozCancelFullScreen();
-    } else if (document.webkitExitFullscreen) {
-      document.webkitExitFullscreen();
-    } else if (document.msExitFullscreen) {
-      document.msExitFullscreen();
-    }
-  };
-
-  const handleExitFullscreen = () => {
-    openModal();
-  };
-
-  const handleConfirmExit = () => {
-    setExitConfirmation(true);
-    closeModal();
-    exitFullscreen();
-  };
-
   return (
     <div>
-      <button onClick={enterFullscreen}>Enter Fullscreen</button>
-      <h1>Welcome to Kiosk Mode!</h1>
-      <button onClick={handleExitFullscreen}>Exit Fullscreen</button>
-
-      {isModalOpen && (
-        <div className="modal-overlay">
-          <div className="modal">
-            <p>Do you really want to exit fullscreen?</p>
-            <button onClick={handleConfirmExit}>Yes</button>
-            <button onClick={closeModal}>No</button>
-          </div>
+      {isFullscreen ? (
+        <div>
+          <Code/>
         </div>
+      ) : (
+        <button onClick={enterFullscreen}>Go to Fullscreen</button>
       )}
     </div>
   );

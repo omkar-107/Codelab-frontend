@@ -16,6 +16,10 @@ import Adminprivateroute from './extra/Adminprivateroute'
 import Adduser from './extra/Adduser' 
 import Addtoclass from './extra/Addtoclass'
 import Exam from './extra/Exam';
+import Insprivateroute from './extra/Insprivateroute';
+import Addasg from './extra/Addasg';
+import Stdassignments from './extra/Stdassignments';
+import Submitasg from './extra/Submitasg';
 
 
 function App() {
@@ -34,11 +38,14 @@ function App() {
         <Route path='/dashboard/add' element={<Adminprivateroute><Adduser></Adduser></Adminprivateroute>}/>
         <Route path='/dashboard/addtoclass' element={<Adminprivateroute><Addtoclass/></Adminprivateroute>}/>
         <Route path='/dashboard/exam' element={<Adminprivateroute><Exam/></Adminprivateroute>}/>
+        <Route path='/dashboard/addasg' element={<Insprivateroute><Addasg/></Insprivateroute>}/>
+        <Route path='/dashboard/sub/:id' element={<Privateroute><Stdassignments/></Privateroute>}/>
+        <Route path='/dashboard/sub/:id/:id2' element={<Privateroute><Submitasg/></Privateroute>}/>
         <Route path='*' element={<Notfound />} />
 
 
       </Routes>
-      <Footer></Footer>
+      <Footer ></Footer>
 
 
 

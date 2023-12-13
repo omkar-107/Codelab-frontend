@@ -2,7 +2,7 @@ import React from 'react';
 
 function Footer() {
   return (
-    <footer className="flex max-w-screen-xl md:flex-row flex-wrap item center  mx-auto gap-y-6 gap-x-12 b border-blue-gray-50 py-4 text-center md:justify-between justify-center flex-col">
+    <footer className=" flex max-w-screen-xl md:flex-row flex-wrap item center  mx-auto gap-y-6 gap-x-12 b border-blue-gray-50 py-4 text-center md:justify-between justify-center flex-col">
       <p className="block font-sans font-bold leading-relaxed text-blue-gray-900 antialiased p-2  text-xl">
         © 2023 CodeLab
       </p>

@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import StudentDashboard from '../extra/StudentDashboard';
 import AdminDashboard from '../extra/AdminDashboard';
+import Insdashboard from '../extra/Insdashboard';
 
 
 const Dashboard = () => {
@@ -22,7 +23,7 @@ const Dashboard = () => {
         return <div><StudentDashboard/></div>
     }
     if(user.accountType === 'instructor') {
-        return <div>Instructor Dashboard</div>
+        return <div><Insdashboard/></div>
     }
    }
 
