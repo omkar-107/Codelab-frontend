@@ -34,7 +34,7 @@ const Submitasg = () => {
     
             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     
-            const res = await axios.get(BASE_URL + "/api/v1/auth/getasg", body);
+            const res = await axios.post(BASE_URL + "/api/v1/auth/getasg", body);
             // console.log( res.data);
     
             // const res = await axios.get(BASE_URL+"/api/v1/auth/getallasg", body, {
