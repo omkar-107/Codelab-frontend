@@ -19,20 +19,20 @@ import { useSelector } from 'react-redux';
 
 let token2;
 const BASE_URL = process.env.REACT_APP_API_URL
-const func = async ({token,id,setCode,getChildCode})=>{
+const func = async ({token,id,getChildCode,submissionid})=>{
     try {
         
         const body = {
             qid: id,
+            submissionid:submissionid
         }
        
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
-        const res = await axios.post(BASE_URL + "/api/v1/auth/getsubmission",  body);
+        const res = await axios.post(BASE_URL + "/api/v1/auth/getsubmission2",  body);
         
         if(res.data.success == true){
             toast.success(res.data.message);
-            console.log(res.data.data.language)
             
             getChildCode(res.data.data.code, res.data.data.language);    
             
@@ -45,13 +45,13 @@ const func = async ({token,id,setCode,getChildCode})=>{
     }
 }
 
-export default  function Codesub({question , id, token }) {
+export default  function Codeview({question , id, token,submissionid }) {
     token2 =token;
 
 
     useEffect(() => {
       setLoading(true);
-      func({token: token2,id,setCode,getChildCode}) 
+      func({token: token2,id,setCode,getChildCode,submissionid}) 
       setLoading(false);
     },[])
 
@@ -69,7 +69,7 @@ export default  function Codesub({question , id, token }) {
         if (extension === "c" || extension === "cpp") {
             setMode('c_cpp');
             setLanguage(extension);
-        } else if (extension === "py" || extension === "python" ) {
+        } else if (extension === "py" || extension === "python") {
             setMode('python');
             setLanguage('python');
         } else if (extension === 'java') {
@@ -135,47 +135,7 @@ export default  function Codesub({question , id, token }) {
     }
 
 
-    const submit = async () => {
-        try {
-            setLoading(true);
-            // setRes('')
-            setTimeout(() => {
-                setLoading(false);
-            },10000);
-            const body = {
-                language: language,
-                content: code,
-                questionId: id,
-
-            }
-            // const response = await fetch(BASE_URL+'/api/v1/code/compile', {
-            //     method: 'POST',
-            //     body: JSON.stringify(jsonData),
-            //     headers: {
-            //         'Content-Type': 'application/json',
-            //     },
-            // })
-
-            axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     
-            const res = await axios.post(BASE_URL + "/api/v1/auth/subasg", body);
-            
-            if (res.data.success === true) {
-                
-                toast.success(res.data.message);
-
-            }
-            else{
-                
-                toast.error(res.data.message);
-            }
-           
-            setLoading(false);
-           
-        } catch (error) {
-            console.error('Error:', error);
-        }
-    }
 
     return (
         <div>
@@ -230,7 +190,7 @@ export default  function Codesub({question , id, token }) {
                 <div className='flex justify-center mt-2 mb-2'>
                     <div className='flex justify-evenly w-[50%]'>
                         <button className='border-2 border-blue-500 rounded-2xl p-2 hover:text-white hover:bg-blue-500 transition-all ease-in-out' onClick={send}>Compile and Execute</button>
-                        <button className='border-2 border-blue-500 rounded-2xl p-2 hover:text-white hover:bg-blue-500 transition-all ease-in-out' onClick={submit}>submit</button>
+                
                     </div>
                 </div>
                 <div className="w-full flex justify-center mt-10 gap-8 items-center">

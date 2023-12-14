@@ -20,6 +20,10 @@ import Insprivateroute from './extra/Insprivateroute';
 import Addasg from './extra/Addasg';
 import Stdassignments from './extra/Stdassignments';
 import Submitasg from './extra/Submitasg';
+import Students from './extra/Students';
+import Submissions from './extra/Submissions';
+import Viewsubmission from './extra/Viewsubmission';
+import Codeview from './component/Codeview';
 
 
 function App() {
@@ -39,8 +43,11 @@ function App() {
         <Route path='/dashboard/addtoclass' element={<Adminprivateroute><Addtoclass/></Adminprivateroute>}/>
         <Route path='/dashboard/exam' element={<Adminprivateroute><Exam/></Adminprivateroute>}/>
         <Route path='/dashboard/addasg' element={<Insprivateroute><Addasg/></Insprivateroute>}/>
+        <Route path='/dashboard/students' element={<Insprivateroute><Students/></Insprivateroute>}/>
+        <Route path='/dashboard/students/:id' element={<Insprivateroute><Submissions/></Insprivateroute>}/>
+        <Route path='/dashboard/students/:id/:id2/:id3' element={<Insprivateroute><Viewsubmission/></Insprivateroute>}/>
         <Route path='/dashboard/sub/:id' element={<Privateroute><Stdassignments/></Privateroute>}/>
-        <Route path='/dashboard/sub/:id/:id2' element={<Privateroute><Submitasg/></Privateroute>}/>
+        <Route path='/dashboard/sub/:id/:id2/' element={<Privateroute><Submitasg/></Privateroute>}/>
         <Route path='*' element={<Notfound />} />
 
 

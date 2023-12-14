@@ -86,7 +86,9 @@ const Exam = () => {
           <Code/>
         </div>
       ) : (
-        <button onClick={enterFullscreen}>Go to Fullscreen</button>
+        <div className='min-h-[80vh] flex justify-center items-center' >
+        <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' onClick={enterFullscreen}>Go to Fullscreen</button>
+        </div>
       )}
     </div>
   );
